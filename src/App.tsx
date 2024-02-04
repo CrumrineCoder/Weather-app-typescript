@@ -24,7 +24,12 @@ function App() {
     const params = {
       latitude: latitude,
       longitude: longitude,
+      current: ["temperature_2m", "precipitation"],
       hourly: "temperature_2m",
+      daily: ["temperature_2m_max", "temperature_2m_min"],
+      temperature_unit: "fahrenheit",
+      wind_speed_unit: "ms",
+      timezone: "GMT"
     };
 
     const responses = await fetchWeatherApi(url, params);
@@ -36,6 +41,8 @@ function App() {
     // Process first location. Add a for-loop for multiple locations or weather models
     const response = responses[0];
 
+    console.log(response);
+
     // Attributes for timezone and location
     const utcOffsetSeconds = response.utcOffsetSeconds();
     //const timezone = response.timezone();
@@ -43,27 +50,27 @@ function App() {
     //const latitude = response.latitude();
     //const longitude = response.longitude();
 
-    const hourly = response.hourly()!;
     const daily = response.daily()!;
+    console.log(daily);
 
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
-      hourly: {
+      daily: {
         time: range(
-          Number(hourly.time()),
-          Number(hourly.timeEnd()),
-          hourly.interval()
+          Number(daily.time()),
+          Number(daily.timeEnd()),
+          daily.interval()
         ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
-        temperature2m: hourly.variables(0)!.valuesArray()!,
+        temperature2m: daily.variables(0)!.valuesArray()!,
       },
     };
 
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
-    for (let i = 0; i < weatherData.hourly.time.length; i++) {
-      console.log(
-        "Hourly Time: " + weatherData.hourly.time[i].toISOString(),
-        "Temperature: " + weatherData.hourly.temperature2m[i]
-      );
+    for (let i = 0; i < weatherData.daily.time.length; i++) {
+      /*   console.log(
+        "Hourly Time: " + weatherData.daily.time[i].toISOString(),
+        "Temperature: " + weatherData.daily.temperature2m[i]
+      ); */
     }
   }
 
