@@ -24,12 +24,34 @@ function App() {
     const params = {
       latitude: latitude,
       longitude: longitude,
-      current: ["temperature_2m", "precipitation"],
-      hourly: "temperature_2m",
-      daily: ["temperature_2m_max", "temperature_2m_min"],
+      current: [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "apparent_temperature",
+        "precipitation",
+        "rain",
+        "showers",
+        "snowfall",
+        "wind_speed_10m",
+      ],
+      daily: [
+        "temperature_2m_max",
+        "temperature_2m_min",
+        "apparent_temperature_max",
+        "apparent_temperature_min",
+        "sunrise",
+        "sunset",
+        "precipitation_sum",
+        "rain_sum",
+        "showers_sum",
+        "snowfall_sum",
+        "precipitation_hours",
+        "precipitation_probability_max",
+        "wind_speed_10m_max",
+      ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
-      timezone: "GMT"
+      timezone: "GMT",
     };
 
     const responses = await fetchWeatherApi(url, params);
@@ -50,27 +72,64 @@ function App() {
     //const latitude = response.latitude();
     //const longitude = response.longitude();
 
+    const current = response.current()!;
     const daily = response.daily()!;
-    console.log(daily);
-
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
+      current: {
+        time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+        temperature2m: current.variables(0)!.value(),
+        relativeHumidity2m: current.variables(1)!.value(),
+        apparentTemperature: current.variables(2)!.value(),
+        precipitation: current.variables(3)!.value(),
+        rain: current.variables(4)!.value(),
+        showers: current.variables(5)!.value(),
+        snowfall: current.variables(6)!.value(),
+        windSpeed10m: current.variables(7)!.value(),
+      },
       daily: {
         time: range(
           Number(daily.time()),
           Number(daily.timeEnd()),
           daily.interval()
         ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
-        temperature2m: daily.variables(0)!.valuesArray()!,
+        temperature2mMax: daily.variables(0)!.valuesArray()!,
+        temperature2mMin: daily.variables(1)!.valuesArray()!,
+        apparentTemperatureMax: daily.variables(2)!.valuesArray()!,
+        apparentTemperatureMin: daily.variables(3)!.valuesArray()!,
+        sunrise: daily.variables(4)!.valuesArray()!,
+        sunset: daily.variables(5)!.valuesArray()!,
+        precipitationSum: daily.variables(6)!.valuesArray()!,
+        rainSum: daily.variables(7)!.valuesArray()!,
+        showersSum: daily.variables(8)!.valuesArray()!,
+        snowfallSum: daily.variables(9)!.valuesArray()!,
+        precipitationHours: daily.variables(10)!.valuesArray()!,
+        precipitationProbabilityMax: daily.variables(11)!.valuesArray()!,
+        windSpeed10mMax: daily.variables(12)!.valuesArray()!,
       },
     };
-
+    console.log(weatherData.daily);
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
     for (let i = 0; i < weatherData.daily.time.length; i++) {
-      /*   console.log(
-        "Hourly Time: " + weatherData.daily.time[i].toISOString(),
-        "Temperature: " + weatherData.daily.temperature2m[i]
-      ); */
+
+      console.log(
+        weatherData.daily.time[i].toISOString(),
+        weatherData.daily.temperature2mMax[i],
+        weatherData.daily.temperature2mMin[i],
+        weatherData.daily.apparentTemperatureMax[i],
+        weatherData.daily.apparentTemperatureMin[i],
+        /*
+        weatherData.daily.sunrise[i],
+        weatherData.daily.sunset[i],
+        */
+        weatherData.daily.precipitationSum[i],
+        weatherData.daily.rainSum[i],
+        weatherData.daily.showersSum[i],
+        weatherData.daily.snowfallSum[i],
+        weatherData.daily.precipitationHours[i],
+        weatherData.daily.precipitationProbabilityMax[i],
+        weatherData.daily.windSpeed10mMax[i]
+      );
     }
   }
 
