@@ -17,9 +17,7 @@ function App() {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
 
-    if (latitude && longitude) {
-      getWeather(latitude, longitude);
-    }
+    getWeather(position.coords.latitude, position.coords.longitude);
   }
 
   async function getWeather(latitude: number, longitude: number) {
@@ -46,6 +44,7 @@ function App() {
     //const longitude = response.longitude();
 
     const hourly = response.hourly()!;
+    const daily = response.daily()!;
 
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
