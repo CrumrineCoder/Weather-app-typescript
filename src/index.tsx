@@ -50,10 +50,17 @@ const weatherData = {
 // `weatherData` now contains a simple structure with arrays for datetime and weather data
 for (let i = 0; i < weatherData.hourly.time.length; i++) {
 	console.log(
-		weatherData.hourly.time[i].toISOString(),
-		weatherData.hourly.temperature2m[i]
+		"Hourly Time: " + weatherData.hourly.time[i].toISOString(),
+		"Temperature: " + weatherData.hourly.temperature2m[i]
 	);
 }
+
+navigator.geolocation.getCurrentPosition((position) => {
+  let lat = position.coords.latitude;
+  let long = position.coords.longitude;
+  console.log(lat.toFixed(2));
+  console.log(long.toFixed(2));
+});
 
 root.render(
   <React.StrictMode>
