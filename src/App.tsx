@@ -1,5 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import { fetchWeatherApi } from "openmeteo";
@@ -8,6 +6,12 @@ const url = "https://api.open-meteo.com/v1/forecast";
 let latitude: number | undefined;
 let longitude: number | undefined;
 
+
+function getLocation() {
+  console.log("Test");
+  navigator.geolocation.getCurrentPosition(handleLocation);
+}
+
 function handleLocation(position: GeolocationPosition) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
@@ -15,8 +19,6 @@ function handleLocation(position: GeolocationPosition) {
     getWeather(latitude, longitude);
   }
 }
-
-navigator.geolocation.getCurrentPosition(handleLocation);
 
 async function getWeather(latitude: number, longitude: number) {
   const params = {
@@ -64,10 +66,11 @@ async function getWeather(latitude: number, longitude: number) {
   }
 }
 
+
 function App() {
   return (
     <div className="App">
-      <button>Get Weather</button>
+      <button id="GetWeatherButton" onClick={getLocation}>Get Weather</button>
     </div>
   );
 }
