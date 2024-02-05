@@ -4,36 +4,41 @@ import React, { useState } from "react";
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
-interface TodaysWeatherData{
-    currentTemperature?: number,
-    currentHumidity?: number,
-    apparentTemperature?: number,
-    precipitation?: number,
-    rain?: number,
-    showers?: number,
-    snowfall?: number,
-    windSpeed?: number
+interface TodaysWeatherData {
+  currentTemperature?: number;
+  currentHumidity?: number;
+  apparentTemperature?: number;
+  precipitation?: number;
+  rain?: number;
+  showers?: number;
+  snowfall?: number;
+  windSpeed?: number;
 }
 
-interface WeeklyForecastData{
-    temperatureMax?: Array<number>,
-    temperatureMin?: Array<number>,
-    apparentTemperatureMax?: Array<number>,
-    apparentTemperatureMin?: Array<number>,
-    sunrise?: Array<number>,
-    sunset?: Array<number>,
-    precipitationSum?: Array<number>,
-    rainSum?: Array<number>,
-    showersSum?: Array<number>,
-    precipitationHours?: Array<number>,
-    precipitationProbabilityMax?: Array<number>,
-    windspeed?: Array<number>
+interface WeeklyForecastData {
+  temperatureMax?: Float32Array;
+  temperatureMin?: Float32Array;
+  apparentTemperatureMax?: Float32Array;
+  apparentTemperatureMin?: Float32Array;
+  sunrise?: Float32Array;
+  sunset?: Float32Array;
+  precipitationSum?: Float32Array;
+  rainSum?: Float32Array;
+  showersSum?: Float32Array;
+  precipitationHours?: Float32Array;
+  precipitationProbabilityMax?: Float32Array;
+  windspeed?: Float32Array;
 }
 
 function App() {
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
-  const [todaysWeatherData, setTodaysWeatherData] = useState<TodaysWeatherData | undefined>(undefined);
+  const [todaysWeatherData, setTodaysWeatherData] = useState<
+    TodaysWeatherData | undefined
+  >(undefined);
+  const [weeklyForecastData, setWeeklyForecastData] = useState<
+    WeeklyForecastData | undefined
+  >(undefined);
 
   /*
   const [currentDate, setCurrentDate] = useState<number | undefined>(undefined);
@@ -150,13 +155,34 @@ function App() {
       },
     };
 
-    setTodaysWeatherData({currentTemperature: weatherData.current.temperature2m,
-      currentHumidity: weatherData.current.relativeHumidity2m})
-    //setCurrentTemperature(weatherData.current.temperature2m);
-    console.log(weatherData.daily);
+    setTodaysWeatherData({
+      currentTemperature: weatherData.current.temperature2m,
+      currentHumidity: weatherData.current.relativeHumidity2m,
+      apparentTemperature: weatherData.current.apparentTemperature,
+      precipitation: weatherData.current.precipitation,
+      rain: weatherData.current.rain,
+      showers: weatherData.current.showers,
+      snowfall: weatherData.current.snowfall,
+      windSpeed: weatherData.current.windSpeed10m,
+    });
+
+    setWeeklyForecastData({
+      temperatureMax: weatherData.daily.temperature2mMax,
+      temperatureMin: weatherData.daily.temperature2mMin,
+      apparentTemperatureMax: weatherData.daily.apparentTemperatureMax,
+      apparentTemperatureMin: weatherData.daily.apparentTemperatureMin,
+      sunrise: weatherData.daily.sunrise,
+      sunset: weatherData.daily.sunset,
+      precipitationSum: weatherData.daily.precipitationSum,
+      rainSum: weatherData.daily.rainSum,
+      showersSum: weatherData.daily.showersSum, 
+      precipitationHours: weatherData.daily.precipitationHours,
+      precipitationProbabilityMax: weatherData.daily.precipitationProbabilityMax,
+      windspeed: weatherData.daily.windSpeed10mMax
+    });
+
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
     for (let i = 0; i < weatherData.daily.time.length; i++) {
-
       console.log(
         weatherData.daily.time[i].toISOString(),
         weatherData.daily.temperature2mMax[i],
