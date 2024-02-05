@@ -4,9 +4,15 @@ import React, { useState } from "react";
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
+interface WeatherData{
+    currentTemperature: number,
+    currentHumidity: number
+}
+
 function App() {
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
+  const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
 
   /*
   const [currentDate, setCurrentDate] = useState<number | undefined>(undefined);
@@ -123,6 +129,8 @@ function App() {
       },
     };
 
+    setWeatherData({currentTemperature: weatherData.current.temperature2m,
+      currentHumidity: weatherData.current.relativeHumidity2m})
     //setCurrentTemperature(weatherData.current.temperature2m);
     console.log(weatherData.daily);
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
@@ -156,6 +164,7 @@ function App() {
       </button>
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
+      {weatherData?.currentTemperature}
     </div>
   );
 }
