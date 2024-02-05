@@ -8,6 +8,20 @@ function App() {
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
 
+  /*
+  const [currentDate, setCurrentDate] = useState<number | undefined>(undefined);
+  const [currentTemperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentHumidity, setCurrentHumidity] = useState<number | undefined>(undefined);
+  const [currentApparentTemperature, setCurrentApparentTemperature] = useState<number | undefined>(undefined);
+  const [currentPrecipitation, setCurrentPrecipitation] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
+*/
+
   function getLocation() {
     console.log("Test");
     navigator.geolocation.getCurrentPosition(handleLocation);
@@ -51,7 +65,7 @@ function App() {
       ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
-      timezone: "GMT",
+      timezone: "CST",
     };
 
     const responses = await fetchWeatherApi(url, params);
@@ -108,6 +122,8 @@ function App() {
         windSpeed10mMax: daily.variables(12)!.valuesArray()!,
       },
     };
+
+    //setCurrentTemperature(weatherData.current.temperature2m);
     console.log(weatherData.daily);
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
     for (let i = 0; i < weatherData.daily.time.length; i++) {
