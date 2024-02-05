@@ -4,15 +4,36 @@ import React, { useState } from "react";
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
-interface WeatherData{
-    currentTemperature: number,
-    currentHumidity: number
+interface TodaysWeatherData{
+    currentTemperature?: number,
+    currentHumidity?: number,
+    apparentTemperature?: number,
+    precipitation?: number,
+    rain?: number,
+    showers?: number,
+    snowfall?: number,
+    windSpeed?: number
+}
+
+interface WeeklyForecastData{
+    temperatureMax?: Array<number>,
+    temperatureMin?: Array<number>,
+    apparentTemperatureMax?: Array<number>,
+    apparentTemperatureMin?: Array<number>,
+    sunrise?: Array<number>,
+    sunset?: Array<number>,
+    precipitationSum?: Array<number>,
+    rainSum?: Array<number>,
+    showersSum?: Array<number>,
+    precipitationHours?: Array<number>,
+    precipitationProbabilityMax?: Array<number>,
+    windspeed?: Array<number>
 }
 
 function App() {
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
-  const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
+  const [todaysWeatherData, setTodaysWeatherData] = useState<TodaysWeatherData | undefined>(undefined);
 
   /*
   const [currentDate, setCurrentDate] = useState<number | undefined>(undefined);
@@ -129,7 +150,7 @@ function App() {
       },
     };
 
-    setWeatherData({currentTemperature: weatherData.current.temperature2m,
+    setTodaysWeatherData({currentTemperature: weatherData.current.temperature2m,
       currentHumidity: weatherData.current.relativeHumidity2m})
     //setCurrentTemperature(weatherData.current.temperature2m);
     console.log(weatherData.daily);
@@ -164,7 +185,7 @@ function App() {
       </button>
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
-      {weatherData?.currentTemperature}
+      {todaysWeatherData?.currentTemperature}
     </div>
   );
 }
