@@ -16,18 +16,18 @@ interface TodaysWeatherData {
 }
 
 interface WeeklyForecastData {
-  temperatureMax?: Float32Array;
-  temperatureMin?: Float32Array;
-  apparentTemperatureMax?: Float32Array;
-  apparentTemperatureMin?: Float32Array;
-  sunrise?: Float32Array;
-  sunset?: Float32Array;
-  precipitationSum?: Float32Array;
-  rainSum?: Float32Array;
-  showersSum?: Float32Array;
-  precipitationHours?: Float32Array;
-  precipitationProbabilityMax?: Float32Array;
-  windspeed?: Float32Array;
+  temperatureMax?: Float32Array | undefined;
+  temperatureMin?: Float32Array | undefined;
+  apparentTemperatureMax?: Float32Array| undefined;
+  apparentTemperatureMin?: Float32Array| undefined;
+  sunrise?: Float32Array| undefined;
+  sunset?: Float32Array| undefined;
+  precipitationSum?: Float32Array| undefined;
+  rainSum?: Float32Array| undefined;
+  showersSum?: Float32Array| undefined;
+  precipitationHours?: Float32Array| undefined;
+  precipitationProbabilityMax?: Float32Array| undefined;
+  windspeed?: Float32Array| undefined;
 }
 
 function App() {
@@ -55,7 +55,6 @@ function App() {
 */
 
   function getLocation() {
-    console.log("Test");
     navigator.geolocation.getCurrentPosition(handleLocation);
   }
 
@@ -108,8 +107,6 @@ function App() {
 
     // Process first location. Add a for-loop for multiple locations or weather models
     const response = responses[0];
-
-    console.log(response);
 
     // Attributes for timezone and location
     const utcOffsetSeconds = response.utcOffsetSeconds();
@@ -175,10 +172,11 @@ function App() {
       sunset: weatherData.daily.sunset,
       precipitationSum: weatherData.daily.precipitationSum,
       rainSum: weatherData.daily.rainSum,
-      showersSum: weatherData.daily.showersSum, 
+      showersSum: weatherData.daily.showersSum,
       precipitationHours: weatherData.daily.precipitationHours,
-      precipitationProbabilityMax: weatherData.daily.precipitationProbabilityMax,
-      windspeed: weatherData.daily.windSpeed10mMax
+      precipitationProbabilityMax:
+        weatherData.daily.precipitationProbabilityMax,
+      windspeed: weatherData.daily.windSpeed10mMax,
     });
 
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
@@ -211,7 +209,8 @@ function App() {
       </button>
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
-      {todaysWeatherData?.currentTemperature}
+      <h3>{todaysWeatherData?.currentTemperature}</h3>
+      <h3>{weeklyForecastData?.temperatureMax?.[0] ?? 'N/A'}</h3>
     </div>
   );
 }
