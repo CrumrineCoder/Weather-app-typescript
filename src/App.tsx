@@ -96,7 +96,7 @@ function App() {
       ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
-      timezone: "CST",
+      timezone: "MST",
     };
 
     const responses = await fetchWeatherApi(url, params);
@@ -151,6 +151,9 @@ function App() {
         windSpeed10mMax: daily.variables(12)!.valuesArray()!,
       },
     };
+
+    console.log( "Sunrise: " +weatherData.daily.sunrise);
+    console.log(" Sunset: " + weatherData.daily.sunset);
 
     setTodaysWeatherData({
       currentTemperature: weatherData.current.temperature2m,
