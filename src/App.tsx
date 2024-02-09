@@ -155,6 +155,8 @@ function App() {
     console.log( "Sunrise: " +weatherData.daily.sunrise);
     console.log(" Sunset: " + weatherData.daily.sunset);
 
+    console.log("Temp max: " + weatherData.daily.temperature2mMax);
+
     setTodaysWeatherData({
       currentTemperature: weatherData.current.temperature2m,
       currentHumidity: weatherData.current.relativeHumidity2m,
@@ -206,7 +208,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+<div className="App" id={todaysWeatherData?.currentTemperature && todaysWeatherData.currentTemperature > 50 ? "Hot" : "Cold"}>
       <button id="GetWeatherButton" onClick={getLocation}>
         Get Weather
       </button>

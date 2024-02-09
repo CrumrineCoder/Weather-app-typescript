@@ -1,5 +1,14 @@
+#Hot{
+  background-color: red;
+}
+
+#Cold{
+  background-color: Blue;
+}
+
 .App {
   text-align: center;
+
 }
 
 .App-logo {
