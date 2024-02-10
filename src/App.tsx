@@ -18,16 +18,16 @@ interface TodaysWeatherData {
 interface WeeklyForecastData {
   temperatureMax?: Float32Array | undefined;
   temperatureMin?: Float32Array | undefined;
-  apparentTemperatureMax?: Float32Array| undefined;
-  apparentTemperatureMin?: Float32Array| undefined;
-  sunrise?: Float32Array| undefined;
-  sunset?: Float32Array| undefined;
-  precipitationSum?: Float32Array| undefined;
-  rainSum?: Float32Array| undefined;
-  showersSum?: Float32Array| undefined;
-  precipitationHours?: Float32Array| undefined;
-  precipitationProbabilityMax?: Float32Array| undefined;
-  windspeed?: Float32Array| undefined;
+  apparentTemperatureMax?: Float32Array | undefined;
+  apparentTemperatureMin?: Float32Array | undefined;
+  sunrise?: Float32Array | undefined;
+  sunset?: Float32Array | undefined;
+  precipitationSum?: Float32Array | undefined;
+  rainSum?: Float32Array | undefined;
+  showersSum?: Float32Array | undefined;
+  precipitationHours?: Float32Array | undefined;
+  precipitationProbabilityMax?: Float32Array | undefined;
+  windspeed?: Float32Array | undefined;
 }
 
 function App() {
@@ -152,7 +152,7 @@ function App() {
       },
     };
 
-    console.log( "Sunrise: " +weatherData.daily.sunrise);
+    console.log("Sunrise: " + weatherData.daily.sunrise);
     console.log(" Sunset: " + weatherData.daily.sunset);
 
     console.log("Temp max: " + weatherData.daily.temperature2mMax);
@@ -207,15 +207,56 @@ function App() {
     }
   }
 
+  function getTemperatureId(temperature: number | undefined) {
+    if (temperature === undefined) {
+      return;
+    }
+    if (temperature < 0) {
+      return "#D7FFF7";
+    } else if (temperature < 9) {
+      return "#C9FFF7";
+    } else if (temperature < 19) {
+      return "#BDFFF7";
+    } else if (temperature < 29) {
+      return "#AAFFF7";
+    } else if (temperature < 39) {
+      return "#86FFE6";
+    } else if (temperature < 49) {
+      return "#61FFBE";
+    } else if (temperature < 59) {
+      return "#55FF8C";
+    } else if (temperature < 69) {
+      return "#4AFF6A";
+    } else if (temperature < 79) {
+      return "#40DE40";
+    } else if (temperature < 85) {
+      return "#C6FF3E";
+    } else if (temperature < 90) {
+      return "#FFF744";
+    } else if (temperature < 95) {
+      return "#FFC92B";
+    } else if (temperature < 100) {
+      return "#FF9036";
+    } else if (temperature >= 100) {
+      return "#FF5337";
+    }
+  }
   return (
-<div className="App" id={todaysWeatherData?.currentTemperature && todaysWeatherData.currentTemperature > 50 ? "Hot" : "Cold"}>
+    <div
+      className="App"
+      style={{
+        backgroundColor: getTemperatureId(
+          todaysWeatherData?.apparentTemperature
+        ),
+      }}
+    >
       <button id="GetWeatherButton" onClick={getLocation}>
         Get Weather
       </button>
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
       <h3>{todaysWeatherData?.currentTemperature}</h3>
-      <h3>{weeklyForecastData?.temperatureMax?.[0] ?? 'N/A'}</h3>
+      <h3>{weeklyForecastData?.temperatureMax?.[0] ?? "N/A"}</h3>
     </div>
   );
 }
