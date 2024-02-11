@@ -218,29 +218,6 @@ function App() {
       windspeed: weatherData.daily.windSpeed10mMax,
       summary: weatherData.daily.weather_code
     });
-
-    // `weatherData` now contains a simple structure with arrays for datetime and weather data
-    for (let i = 0; i < weatherData.daily.time.length; i++) {
-      console.log(
-        weatherData.daily.time[i].toISOString(),
-        weatherData.daily.temperature2mMax[i],
-        weatherData.daily.temperature2mMin[i],
-        weatherData.daily.apparentTemperatureMax[i],
-        weatherData.daily.apparentTemperatureMin[i],
-        /*
-        weatherData.daily.sunrise[i],
-        weatherData.daily.sunset[i],
-        */
-        weatherData.daily.precipitationSum[i],
-        weatherData.daily.rainSum[i],
-        weatherData.daily.showersSum[i],
-        weatherData.daily.snowfallSum[i],
-        weatherData.daily.precipitationHours[i],
-        weatherData.daily.precipitationProbabilityMax[i],
-        weatherData.daily.windSpeed10mMax[i],
-        weatherData.daily.weather_code[i],
-      );
-    }
   }
 
   function getTemperatureId(temperature: number | undefined) {
