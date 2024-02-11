@@ -44,6 +44,7 @@ interface TodaysWeatherData {
   showers?: number;
   snowfall?: number;
   windSpeed?: number;
+  summary?: Float32Array | undefined;
 }
 
 interface WeeklyForecastData {
@@ -110,6 +111,7 @@ function App() {
         "showers",
         "snowfall",
         "wind_speed_10m",
+        "weather_code"
       ],
       daily: [
         "temperature_2m_max",
@@ -162,6 +164,7 @@ function App() {
         showers: current.variables(5)!.value(),
         snowfall: current.variables(6)!.value(),
         windSpeed10m: current.variables(7)!.value(),
+        weather_code: daily.variables(8)!.valuesArray()!,
       },
       daily: {
         time: range(
@@ -195,6 +198,7 @@ function App() {
       showers: weatherData.current.showers,
       snowfall: weatherData.current.snowfall,
       windSpeed: weatherData.current.windSpeed10m,
+      summary: weatherData.current.weather_code,
     });
 
     setWeeklyForecastData({
@@ -299,7 +303,8 @@ function App() {
       <h3>Showers: {todaysWeatherData?.showers}</h3>
       <h3>Snowfall: {todaysWeatherData?.snowfall}</h3>
       <h3>Wind Speed: {todaysWeatherData?.windSpeed}</h3>
-    
+      <h3>Today's Weather Code: {convertWMO(todaysWeatherData?.summary?.[0])}</h3>
+
       <h3>Tomorrow's Maximum: {weeklyForecastData?.temperatureMax?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Minimum: {weeklyForecastData?.temperatureMin?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Apparent Temperature Max: {weeklyForecastData?.apparentTemperatureMax?.[0] ?? "N/A"}</h3>
@@ -311,8 +316,8 @@ function App() {
       <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[0])}</h3>
-      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}</h3>
-      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[2])}</h3>
+      <h3>Day After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}</h3>
+      <h3>Day After After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[2])}</h3>
     </div>
   );
 }
