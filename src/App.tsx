@@ -28,6 +28,7 @@ interface WeeklyForecastData {
   precipitationHours?: Float32Array | undefined;
   precipitationProbabilityMax?: Float32Array | undefined;
   windspeed?: Float32Array | undefined;
+  summary?: Float32Array | undefined;
 }
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
         "precipitation_hours",
         "precipitation_probability_max",
         "wind_speed_10m_max",
+        "weather_code"
       ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
@@ -149,6 +151,7 @@ function App() {
         precipitationHours: daily.variables(10)!.valuesArray()!,
         precipitationProbabilityMax: daily.variables(11)!.valuesArray()!,
         windSpeed10mMax: daily.variables(12)!.valuesArray()!,
+        weather_code: daily.variables(13)!.valuesArray()!,
       },
     };
 
@@ -177,6 +180,7 @@ function App() {
       precipitationProbabilityMax:
         weatherData.daily.precipitationProbabilityMax,
       windspeed: weatherData.daily.windSpeed10mMax,
+      summary: weatherData.daily.weather_code
     });
 
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
@@ -197,7 +201,8 @@ function App() {
         weatherData.daily.snowfallSum[i],
         weatherData.daily.precipitationHours[i],
         weatherData.daily.precipitationProbabilityMax[i],
-        weatherData.daily.windSpeed10mMax[i]
+        weatherData.daily.windSpeed10mMax[i],
+        weatherData.daily.weather_code[i],
       );
     }
   }
@@ -270,7 +275,7 @@ function App() {
       <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0] ?? "N/A"}</h3>
-
+      <h3>Tomorrow's Weather Code: {weeklyForecastData?.summary?.[0] ?? "N/A"}</h3>
     </div>
   );
 }
