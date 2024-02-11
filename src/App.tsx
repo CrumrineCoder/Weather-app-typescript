@@ -33,8 +33,8 @@ const WMO_CODES = {
   86: "Heavy snow showers",
   95: "Thunderstorm",
   96: "Thunderstorm with slight hail",
-  99: "Thunderstorm with heavy hail"
-}
+  99: "Thunderstorm with heavy hail",
+};
 
 interface TodaysWeatherData {
   currentTemperature?: number;
@@ -74,20 +74,6 @@ function App() {
     WeeklyForecastData | undefined
   >(undefined);
 
-  /*
-  const [currentDate, setCurrentDate] = useState<number | undefined>(undefined);
-  const [currentTemperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentHumidity, setCurrentHumidity] = useState<number | undefined>(undefined);
-  const [currentApparentTemperature, setCurrentApparentTemperature] = useState<number | undefined>(undefined);
-  const [currentPrecipitation, setCurrentPrecipitation] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-  const [currentTermperature, setCurrentTemperature] = useState<number | undefined>(undefined);
-*/
-
   function getLocation() {
     navigator.geolocation.getCurrentPosition(handleLocation);
   }
@@ -112,7 +98,7 @@ function App() {
         "showers",
         "snowfall",
         "wind_speed_10m",
-        "weather_code"
+        "weather_code",
       ],
       daily: [
         "temperature_2m_max",
@@ -128,7 +114,7 @@ function App() {
         "precipitation_hours",
         "precipitation_probability_max",
         "wind_speed_10m_max",
-        "weather_code"
+        "weather_code",
       ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
@@ -137,23 +123,15 @@ function App() {
 
     const responses = await fetchWeatherApi(url, params);
 
-    // Helper function to form time ranges
     const range = (start: number, stop: number, step: number) =>
       Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
 
-    // Process first location. Add a for-loop for multiple locations or weather models
     const response = responses[0];
 
-    // Attributes for timezone and location
     const utcOffsetSeconds = response.utcOffsetSeconds();
-    //const timezone = response.timezone();
-    //const timezoneAbbreviation = response.timezoneAbbreviation();
-    //const latitude = response.latitude();
-    //const longitude = response.longitude();
-
     const current = response.current()!;
     const daily = response.daily()!;
-    // Note: The order of weather variables in the URL query and the indices below need to match!
+
     const weatherData = {
       current: {
         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
@@ -216,7 +194,7 @@ function App() {
       precipitationProbabilityMax:
         weatherData.daily.precipitationProbabilityMax,
       windspeed: weatherData.daily.windSpeed10mMax,
-      summary: weatherData.daily.weather_code
+      summary: weatherData.daily.weather_code,
     });
   }
 
@@ -255,8 +233,8 @@ function App() {
     }
   }
 
-  function convertWMO(code: number | undefined){
-      return WMO_CODES[code as keyof typeof WMO_CODES];
+  function convertWMO(code: number | undefined) {
+    return WMO_CODES[code as keyof typeof WMO_CODES];
   }
   return (
     <div
@@ -267,35 +245,85 @@ function App() {
         ),
       }}
     >
-      <button id="GetWeatherButton" onClick={getLocation}>
-        Get Weather
-      </button>
-      <h1>Latitude: {latitude}</h1>
-      <h1>Longitude: {longitude}</h1>
-      <h1> Today: </h1>
-      <h3>Current Temperature: {todaysWeatherData?.currentTemperature?.toFixed(0) ?? 'N/A'}</h3>
-      <h3>Feels like: {todaysWeatherData?.apparentTemperature?.toFixed(0)}</h3>
-      <h3>Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)}</h3>
-      <h3>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}</h3>
-      <h3>Rain: {todaysWeatherData?.rain?.toFixed(0)}</h3>
-      <h3>Showers: {todaysWeatherData?.showers?.toFixed(0)}</h3>
-      <h3>Snowfall: {todaysWeatherData?.snowfall?.toFixed(0)}</h3>
-      <h3>Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)}</h3>
-      <h3>Today's Weather Code: {convertWMO(todaysWeatherData?.summary?.[0])}</h3>
+      <span className="ForecastContainer">
+        <button id="GetWeatherButton" onClick={getLocation}>
+          Get Weather
+        </button>
 
-      <h3>Tomorrow's Maximum: {weeklyForecastData?.temperatureMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Minimum: {weeklyForecastData?.temperatureMin?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Apparent Temperature Max: {weeklyForecastData?.apparentTemperatureMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Apparent Temperature Min: {weeklyForecastData?.apparentTemperatureMin?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Precipitation Sum: {weeklyForecastData?.precipitationSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Rain Sum: {weeklyForecastData?.rainSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Showers Sum: {weeklyForecastData?.showersSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0]?.toFixed(0) ?? "N/A"}</h3>
-      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[0])}</h3>
-      <h3>Day After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}</h3>
-      <h3>Day After After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[2])}</h3>
+        <span className="TodayContainer">
+          <span className="TodayHeaderSummary">
+            {convertWMO(todaysWeatherData?.summary?.[0])}
+          </span>
+          <span className="TodayActualTemp">
+            {todaysWeatherData?.currentTemperature?.toFixed(0)}°
+          </span>
+          <span className="TodayApparentTemp">
+          Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}
+          </span>
+        </span>
+        <h1>Latitude: {latitude}</h1>
+        <h1>Longitude: {longitude}</h1>
+        <h1> Today: </h1>
+        <h3>Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)}</h3>
+        <h3>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}</h3>
+        <h3>Rain: {todaysWeatherData?.rain?.toFixed(0)}</h3>
+        <h3>Showers: {todaysWeatherData?.showers?.toFixed(0)}</h3>
+        <h3>Snowfall: {todaysWeatherData?.snowfall?.toFixed(0)}</h3>
+        <h3> {todaysWeatherData?.windSpeed?.toFixed(0)}</h3>
+        <h3>Today's Weather Code:</h3>
+      </span>
+
+      <h3>
+        Tomorrow's Maximum:{" "}
+        {weeklyForecastData?.temperatureMax?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Minimum:{" "}
+        {weeklyForecastData?.temperatureMin?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Apparent Temperature Max:{" "}
+        {weeklyForecastData?.apparentTemperatureMax?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Apparent Temperature Min:{" "}
+        {weeklyForecastData?.apparentTemperatureMin?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Precipitation Sum:{" "}
+        {weeklyForecastData?.precipitationSum?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Rain Sum:{" "}
+        {weeklyForecastData?.rainSum?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Showers Sum:{" "}
+        {weeklyForecastData?.showersSum?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Precipitation Hours:{" "}
+        {weeklyForecastData?.precipitationHours?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Probability Max:{" "}
+        {weeklyForecastData?.precipitationProbabilityMax?.[0]?.toFixed(0) ??
+          "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Wind Speed:{" "}
+        {weeklyForecastData?.windspeed?.[0]?.toFixed(0) ?? "N/A"}
+      </h3>
+      <h3>
+        Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[0])}
+      </h3>
+      <h3>
+        Day After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}
+      </h3>
+      <h3>
+        Day After After's Weather Code:{" "}
+        {convertWMO(weeklyForecastData?.summary?.[2])}
+      </h3>
     </div>
   );
 }
