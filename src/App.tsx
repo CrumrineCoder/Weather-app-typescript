@@ -152,11 +152,6 @@ function App() {
       },
     };
 
-    console.log("Sunrise: " + weatherData.daily.sunrise);
-    console.log(" Sunset: " + weatherData.daily.sunset);
-
-    console.log("Temp max: " + weatherData.daily.temperature2mMax);
-
     setTodaysWeatherData({
       currentTemperature: weatherData.current.temperature2m,
       currentHumidity: weatherData.current.relativeHumidity2m,
@@ -255,8 +250,27 @@ function App() {
       </button>
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
-      <h3>{todaysWeatherData?.currentTemperature}</h3>
-      <h3>{weeklyForecastData?.temperatureMax?.[0] ?? "N/A"}</h3>
+      <h1> Today: </h1>
+      <h3>Current Temperature: {todaysWeatherData?.currentTemperature}</h3>
+      <h3>Feels like: {todaysWeatherData?.apparentTemperature}</h3>
+      <h3>Humidity: {todaysWeatherData?.currentHumidity}</h3>
+      <h3>Precipitation: {todaysWeatherData?.precipitation}</h3>
+      <h3>Rain: {todaysWeatherData?.rain}</h3>
+      <h3>Showers: {todaysWeatherData?.showers}</h3>
+      <h3>Snowfall: {todaysWeatherData?.snowfall}</h3>
+      <h3>Wind Speed: {todaysWeatherData?.windSpeed}</h3>
+    
+      <h3>Tomorrow's Maximum: {weeklyForecastData?.temperatureMax?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Minimum: {weeklyForecastData?.temperatureMin?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Apparent Temperature Max: {weeklyForecastData?.apparentTemperatureMax?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Apparent Temperature Min: {weeklyForecastData?.apparentTemperatureMin?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Precipitation Sum: {weeklyForecastData?.precipitationSum?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Rain Sum: {weeklyForecastData?.rainSum?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Showers Sum: {weeklyForecastData?.showersSum?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0] ?? "N/A"}</h3>
+      <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0] ?? "N/A"}</h3>
+
     </div>
   );
 }
