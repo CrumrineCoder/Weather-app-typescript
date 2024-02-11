@@ -1,4 +1,5 @@
 import "./App.css";
+import "./App.scss";
 import React, { useState } from "react";
 
 import { fetchWeatherApi } from "openmeteo";
