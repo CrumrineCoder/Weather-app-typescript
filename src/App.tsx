@@ -273,8 +273,8 @@ function App() {
     }
   }
 
-  function convertWMO(code: number){
-
+  function convertWMO(code: number | undefined){
+      return WMO_CODES[code as keyof typeof WMO_CODES];
   }
   return (
     <div
@@ -310,9 +310,9 @@ function App() {
       <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0] ?? "N/A"}</h3>
       <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Weather Code: {weeklyForecastData?.summary?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Weather Code: {weeklyForecastData?.summary?.[1] ?? "N/A"}</h3>
-      <h3>Tomorrow's Weather Code: {weeklyForecastData?.summary?.[2] ?? "N/A"}</h3>
+      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[0])}</h3>
+      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}</h3>
+      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[2])}</h3>
     </div>
   );
 }
