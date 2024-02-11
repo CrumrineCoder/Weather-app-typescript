@@ -5,6 +5,37 @@ import React, { useState } from "react";
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
+const WMO_CODES = {
+  0: "Clear Sky",
+  1: "Mainly Clear",
+  2: "Partly Cloudy",
+  3: "Overcast",
+  45: "Fog",
+  48: "Depositing Rime Fog",
+  51: "Light drizzle",
+  53: "Moderate drizzle",
+  55: "Dense drizzle",
+  56: "Light freezing drizzle",
+  57: "Dense freezing drizzle",
+  61: "Slight rain",
+  63: "Moderate rain",
+  65: "Heavy rain",
+  66: "Light freezing rain",
+  67: "Heavy freezing rain",
+  71: "Slight snow fall",
+  73: "Moderate snow fall",
+  75: "Heavy snow fall",
+  77: "Snow grains",
+  80: "Slight rain showers",
+  81: "Moderate rain showers",
+  82: "Violent rain showers",
+  85: "Slight snow showers",
+  86: "Heavy snow showers",
+  95: "Thunderstorm",
+  96: "Thunderstorm with slight hail",
+  99: "Thunderstorm with heavy hail"
+}
+
 interface TodaysWeatherData {
   currentTemperature?: number;
   currentHumidity?: number;
@@ -14,6 +45,7 @@ interface TodaysWeatherData {
   showers?: number;
   snowfall?: number;
   windSpeed?: number;
+  summary?: Float32Array | undefined;
 }
 
 interface WeeklyForecastData {
@@ -29,6 +61,7 @@ interface WeeklyForecastData {
   precipitationHours?: Float32Array | undefined;
   precipitationProbabilityMax?: Float32Array | undefined;
   windspeed?: Float32Array | undefined;
+  summary?: Float32Array | undefined;
 }
 
 function App() {
@@ -79,6 +112,7 @@ function App() {
         "showers",
         "snowfall",
         "wind_speed_10m",
+        "weather_code"
       ],
       daily: [
         "temperature_2m_max",
@@ -94,6 +128,7 @@ function App() {
         "precipitation_hours",
         "precipitation_probability_max",
         "wind_speed_10m_max",
+        "weather_code"
       ],
       temperature_unit: "fahrenheit",
       wind_speed_unit: "ms",
@@ -130,6 +165,7 @@ function App() {
         showers: current.variables(5)!.value(),
         snowfall: current.variables(6)!.value(),
         windSpeed10m: current.variables(7)!.value(),
+        weather_code: daily.variables(8)!.valuesArray()!,
       },
       daily: {
         time: range(
@@ -150,6 +186,7 @@ function App() {
         precipitationHours: daily.variables(10)!.valuesArray()!,
         precipitationProbabilityMax: daily.variables(11)!.valuesArray()!,
         windSpeed10mMax: daily.variables(12)!.valuesArray()!,
+        weather_code: daily.variables(13)!.valuesArray()!,
       },
     };
 
@@ -162,6 +199,7 @@ function App() {
       showers: weatherData.current.showers,
       snowfall: weatherData.current.snowfall,
       windSpeed: weatherData.current.windSpeed10m,
+      summary: weatherData.current.weather_code,
     });
 
     setWeeklyForecastData({
@@ -178,6 +216,7 @@ function App() {
       precipitationProbabilityMax:
         weatherData.daily.precipitationProbabilityMax,
       windspeed: weatherData.daily.windSpeed10mMax,
+      summary: weatherData.daily.weather_code
     });
 
     // `weatherData` now contains a simple structure with arrays for datetime and weather data
@@ -198,7 +237,8 @@ function App() {
         weatherData.daily.snowfallSum[i],
         weatherData.daily.precipitationHours[i],
         weatherData.daily.precipitationProbabilityMax[i],
-        weatherData.daily.windSpeed10mMax[i]
+        weatherData.daily.windSpeed10mMax[i],
+        weatherData.daily.weather_code[i],
       );
     }
   }
@@ -237,6 +277,10 @@ function App() {
       return "#FF5337";
     }
   }
+
+  function convertWMO(code: number | undefined){
+      return WMO_CODES[code as keyof typeof WMO_CODES];
+  }
   return (
     <div
       className="App"
@@ -252,26 +296,29 @@ function App() {
       <h1>Latitude: {latitude}</h1>
       <h1>Longitude: {longitude}</h1>
       <h1> Today: </h1>
-      <h3>Current Temperature: {todaysWeatherData?.currentTemperature}</h3>
-      <h3>Feels like: {todaysWeatherData?.apparentTemperature}</h3>
-      <h3>Humidity: {todaysWeatherData?.currentHumidity}</h3>
-      <h3>Precipitation: {todaysWeatherData?.precipitation}</h3>
-      <h3>Rain: {todaysWeatherData?.rain}</h3>
-      <h3>Showers: {todaysWeatherData?.showers}</h3>
-      <h3>Snowfall: {todaysWeatherData?.snowfall}</h3>
-      <h3>Wind Speed: {todaysWeatherData?.windSpeed}</h3>
-    
-      <h3>Tomorrow's Maximum: {weeklyForecastData?.temperatureMax?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Minimum: {weeklyForecastData?.temperatureMin?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Apparent Temperature Max: {weeklyForecastData?.apparentTemperatureMax?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Apparent Temperature Min: {weeklyForecastData?.apparentTemperatureMin?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Precipitation Sum: {weeklyForecastData?.precipitationSum?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Rain Sum: {weeklyForecastData?.rainSum?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Showers Sum: {weeklyForecastData?.showersSum?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0] ?? "N/A"}</h3>
-      <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0] ?? "N/A"}</h3>
+      <h3>Current Temperature: {todaysWeatherData?.currentTemperature?.toFixed(0) ?? 'N/A'}</h3>
+      <h3>Feels like: {todaysWeatherData?.apparentTemperature?.toFixed(0)}</h3>
+      <h3>Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)}</h3>
+      <h3>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}</h3>
+      <h3>Rain: {todaysWeatherData?.rain?.toFixed(0)}</h3>
+      <h3>Showers: {todaysWeatherData?.showers?.toFixed(0)}</h3>
+      <h3>Snowfall: {todaysWeatherData?.snowfall?.toFixed(0)}</h3>
+      <h3>Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)}</h3>
+      <h3>Today's Weather Code: {convertWMO(todaysWeatherData?.summary?.[0])}</h3>
 
+      <h3>Tomorrow's Maximum: {weeklyForecastData?.temperatureMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Minimum: {weeklyForecastData?.temperatureMin?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Apparent Temperature Max: {weeklyForecastData?.apparentTemperatureMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Apparent Temperature Min: {weeklyForecastData?.apparentTemperatureMin?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Precipitation Sum: {weeklyForecastData?.precipitationSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Rain Sum: {weeklyForecastData?.rainSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Showers Sum: {weeklyForecastData?.showersSum?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Precipitation Hours: {weeklyForecastData?.precipitationHours?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Probability Max: {weeklyForecastData?.precipitationProbabilityMax?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Wind Speed: {weeklyForecastData?.windspeed?.[0]?.toFixed(0) ?? "N/A"}</h3>
+      <h3>Tomorrow's Weather Code: {convertWMO(weeklyForecastData?.summary?.[0])}</h3>
+      <h3>Day After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[1])}</h3>
+      <h3>Day After After's Weather Code: {convertWMO(weeklyForecastData?.summary?.[2])}</h3>
     </div>
   );
 }
