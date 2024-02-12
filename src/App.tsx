@@ -10,32 +10,32 @@ import Overcast from "./Weather Icons/wi-cloudy.svg";
 import Fog from "./Weather Icons/wi-fog.svg";
 import RimeFog from "./Weather Icons/wi-fog.svg";
 
-import LightDrizzle from "./WeatherIcons/wi-day-rain.svg";
-import ModerateDrizzle from "./WeatherIcons/wi-day-rain.svg";
-import DenseDrizzle from "./WeatherIcons/wi-day-rain.svg";
-import LightFreezeDrizzle from "./WeatherIcons/wi-day-rain.svg";
-import DenseFreezeDrizzle from "./WeatherIcons/wi-day-rain.svg";
+import LightDrizzle from "./Weather Icons/wi-day-rain.svg";
+import ModerateDrizzle from "./Weather Icons/wi-day-rain.svg";
+import DenseDrizzle from "./Weather Icons/wi-day-rain.svg";
+import LightFreezeDrizzle from "./Weather Icons/wi-day-rain.svg";
+import DenseFreezeDrizzle from "./Weather Icons/wi-day-rain.svg";
 
-import SlightRain from "./WeatherIcons/wi-day-rain.svg";
-import ModerateRain from "./WeatherIcons/wi-day-rain.svg";
-import HeavyRain from "./WeatherIcons/wi-day-rain.svg";
-import LightFreezingRain from "./WeatherIcons/wi-day-rain.svg";
-import HeavyFreezingRain from "./WeatherIcons/wi-day-rain.svg";
+import SlightRain from "./Weather Icons/wi-day-rain.svg";
+import ModerateRain from "./Weather Icons/wi-day-rain.svg";
+import HeavyRain from "./Weather Icons/wi-day-rain.svg";
+import LightFreezingRain from "./Weather Icons/wi-day-rain.svg";
+import HeavyFreezingRain from "./Weather Icons/wi-day-rain.svg";
 
-import SlightSnow from "./WeatherIcons/wi-snow.svg";
-import ModerateSnow from "./WeatherIcons/wi-snow.svg";
-import HeavySnow from "./WeatherIcons/wi-snow.svg";
-import Snowgrain from "./WeatherIcons/wi-snow.svg";
+import SlightSnow from "./Weather Icons/wi-snow.svg";
+import ModerateSnow from "./Weather Icons/wi-snow.svg";
+import HeavySnow from "./Weather Icons/wi-snow.svg";
+import Snowgrain from "./Weather Icons/wi-snow.svg";
 
-import SlightRainShowers from "./WeatherIcons/wi-day-rain.svg";
-import ModerateRainShowers from "./WeatherIcons/wi-day-rain.svg";
-import ViolentRainShowers from "./WeatherIcons/wi-day-rain.svg";
-import SlightSnowShowers from "./WeatherIcons/wi-snow.svg";
-import HeavySnowShowers from "./WeatherIcons/wi-snow.svg";
+import SlightRainShowers from "./Weather Icons/wi-day-rain.svg";
+import ModerateRainShowers from "./Weather Icons/wi-day-rain.svg";
+import ViolentRainShowers from "./Weather Icons/wi-day-rain.svg";
+import SlightSnowShowers from "./Weather Icons/wi-snow.svg";
+import HeavySnowShowers from "./Weather Icons/wi-snow.svg";
 
-import Thunderstorm from "./WeatherIcons/wi-thunderstorm.svg";
-import ThunderstormSlightHail from "./WeatherIcons/wi-thunderstorm.svg";
-import ThunderstormHeavyHail from "./WeatherIcons/wi-thunderstorm.svg";
+import Thunderstorm from "./Weather Icons/wi-thunderstorm.svg";
+import ThunderstormSlightHail from "./Weather Icons/wi-thunderstorm.svg";
+import ThunderstormHeavyHail from "./Weather Icons/wi-thunderstorm.svg";
 
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
@@ -69,6 +69,69 @@ const WMO_CODES = {
   95: "Thunderstorm",
   96: "Thunderstorm with slight hail",
   99: "Thunderstorm with heavy hail",
+};
+
+const getWeatherIcon = (wmoCode: number) => {
+  switch (wmoCode) {
+    case 0:
+      return ClearSky;
+    case 1:
+      return MainlyClear;
+    case 2:
+      return PartlyCloudy;
+    case 3:
+      return Overcast;
+    case 45:
+      return Fog;
+    case 48:
+      return RimeFog;
+    case 51:
+      return LightDrizzle;
+    case 53:
+      return ModerateDrizzle;
+    case 55:
+      return DenseDrizzle;
+    case 56:
+      return LightFreezeDrizzle;
+    case 57:
+      return DenseFreezeDrizzle;
+    case 61:
+      return SlightRain;
+    case 63:
+      return ModerateRain;
+    case 65:
+      return HeavyRain;
+    case 66:
+      return LightFreezingRain;
+    case 67:
+      return HeavyFreezingRain;
+    case 71:
+      return SlightSnow;
+    case 73:
+      return ModerateSnow;
+    case 75:
+      return HeavySnow;
+    case 77:
+      return Snowgrain;
+    case 80:
+      return SlightRainShowers;
+    case 81:
+      return ModerateRainShowers;
+    case 82:
+      return ViolentRainShowers;
+    case 85:
+      return SlightSnowShowers;
+    case 86:
+      return HeavySnowShowers;
+    case 95:
+      return Thunderstorm;
+    case 96:
+      return ThunderstormSlightHail;
+    case 99:
+      return ThunderstormHeavyHail;
+    default:
+      return ""; // Return a default icon or handle unknown WMO codes accordingly
+  }
 };
 
 interface TodaysWeatherData {
