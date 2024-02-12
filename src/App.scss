@@ -10,8 +10,8 @@ body {
       border-radius: 15px;
       .TodayContainer {
         display: flex;
-        align-content: center;
         flex-direction: column;
+        align-items: center;
         .TodayHeaderSummary {
           display: block;
         }

@@ -367,13 +367,12 @@ function App() {
             </span>
           </span>
           <span className="TodayApparentTemp">
-            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}
+            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)} (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
           </span>
         </span>
         <h1>Latitude: {latitude}</h1>
         <h1>Longitude: {longitude}</h1>
         <h1> Today: </h1>
-        <h3>Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)}</h3>
         <h3>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}</h3>
         <h3>Rain: {todaysWeatherData?.rain?.toFixed(0)}</h3>
         <h3>Showers: {todaysWeatherData?.showers?.toFixed(0)}</h3>
