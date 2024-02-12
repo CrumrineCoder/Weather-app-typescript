@@ -2,6 +2,8 @@ import "./App.css";
 import "./App.scss";
 import React, { useState } from "react";
 
+import SunIcon from "./Weather Icons/sun.svg";
+
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
@@ -254,11 +256,22 @@ function App() {
           <span className="TodayHeaderSummary">
             {convertWMO(todaysWeatherData?.summary?.[0])}
           </span>
-          <span className="TodayActualTemp">
-            {todaysWeatherData?.currentTemperature?.toFixed(0)}°
+          <span className="TodayContainerMiddle">
+            <img src={SunIcon}></img>
+            <span className="TodayActualTemp">
+              {todaysWeatherData?.currentTemperature?.toFixed(0)}°
+            </span>
+            <span className="TodayHighLowContainer">
+              <span className="TodayHigh">
+                {weeklyForecastData?.temperatureMax?.[0]?.toFixed(0)}°(high)
+              </span>
+              <span className="TodayLow">
+                {weeklyForecastData?.temperatureMin?.[0]?.toFixed(0)}°(low)
+              </span>
+            </span>
           </span>
           <span className="TodayApparentTemp">
-          Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}
+            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}
           </span>
         </span>
         <h1>Latitude: {latitude}</h1>
@@ -272,15 +285,6 @@ function App() {
         <h3> {todaysWeatherData?.windSpeed?.toFixed(0)}</h3>
         <h3>Today's Weather Code:</h3>
       </span>
-
-      <h3>
-        Tomorrow's Maximum:{" "}
-        {weeklyForecastData?.temperatureMax?.[0]?.toFixed(0) ?? "N/A"}
-      </h3>
-      <h3>
-        Tomorrow's Minimum:{" "}
-        {weeklyForecastData?.temperatureMin?.[0]?.toFixed(0) ?? "N/A"}
-      </h3>
       <h3>
         Tomorrow's Apparent Temperature Max:{" "}
         {weeklyForecastData?.apparentTemperatureMax?.[0]?.toFixed(0) ?? "N/A"}
