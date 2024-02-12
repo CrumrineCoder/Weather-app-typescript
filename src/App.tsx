@@ -71,7 +71,7 @@ const WMO_CODES = {
   99: "Thunderstorm with heavy hail",
 };
 
-const getWeatherIcon = (wmoCode: number) => {
+const getWeatherIcon = (wmoCode: number | undefined) => {
   switch (wmoCode) {
     case 0:
       return ClearSky;
@@ -353,7 +353,7 @@ function App() {
             {convertWMO(todaysWeatherData?.summary?.[0])}
           </span>
           <span className="TodayContainerMiddle">
-            <img className="TodaysWeatherIcon" src={ClearSky}></img>
+            <img className="TodaysWeatherIcon" src={getWeatherIcon((todaysWeatherData?.summary?.[0]))}></img>
             <span className="TodayActualTemp">
               {todaysWeatherData?.currentTemperature?.toFixed(0)}°
             </span>
