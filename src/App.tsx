@@ -3,6 +3,39 @@ import "./App.scss";
 import React, { useState } from "react";
 
 import ClearSky from "./Weather Icons/wi-day-sunny.svg";
+import MainlyClear from "./Weather Icons/wi-day-cloudy.svg";
+import PartlyCloudy from "./Weather Icons/wi-cloud.svg";
+import Overcast from "./Weather Icons/wi-cloudy.svg";
+
+import Fog from "./Weather Icons/wi-fog.svg";
+import RimeFog from "./Weather Icons/wi-fog.svg";
+
+import LightDrizzle from "./WeatherIcons/wi-day-rain.svg";
+import ModerateDrizzle from "./WeatherIcons/wi-day-rain.svg";
+import DenseDrizzle from "./WeatherIcons/wi-day-rain.svg";
+import LightFreezeDrizzle from "./WeatherIcons/wi-day-rain.svg";
+import DenseFreezeDrizzle from "./WeatherIcons/wi-day-rain.svg";
+
+import SlightRain from "./WeatherIcons/wi-day-rain.svg";
+import ModerateRain from "./WeatherIcons/wi-day-rain.svg";
+import HeavyRain from "./WeatherIcons/wi-day-rain.svg";
+import LightFreezingRain from "./WeatherIcons/wi-day-rain.svg";
+import HeavyFreezingRain from "./WeatherIcons/wi-day-rain.svg";
+
+import SlightSnow from "./WeatherIcons/wi-snow.svg";
+import ModerateSnow from "./WeatherIcons/wi-snow.svg";
+import HeavySnow from "./WeatherIcons/wi-snow.svg";
+import Snowgrain from "./WeatherIcons/wi-snow.svg";
+
+import SlightRainShowers from "./WeatherIcons/wi-day-rain.svg";
+import ModerateRainShowers from "./WeatherIcons/wi-day-rain.svg";
+import ViolentRainShowers from "./WeatherIcons/wi-day-rain.svg";
+import SlightSnowShowers from "./WeatherIcons/wi-snow.svg";
+import HeavySnowShowers from "./WeatherIcons/wi-snow.svg";
+
+import Thunderstorm from "./WeatherIcons/wi-thunderstorm.svg";
+import ThunderstormSlightHail from "./WeatherIcons/wi-thunderstorm.svg";
+import ThunderstormHeavyHail from "./WeatherIcons/wi-thunderstorm.svg";
 
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
