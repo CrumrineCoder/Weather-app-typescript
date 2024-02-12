@@ -2,7 +2,7 @@ import "./App.css";
 import "./App.scss";
 import React, { useState } from "react";
 
-import SunIcon from "./Weather Icons/sun.svg";
+import ClearSky from "./Weather Icons/wi-day-sunny.svg";
 
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
@@ -257,7 +257,7 @@ function App() {
             {convertWMO(todaysWeatherData?.summary?.[0])}
           </span>
           <span className="TodayContainerMiddle">
-            <img src={SunIcon}></img>
+            <img className="TodaysWeatherIcon" src={ClearSky}></img>
             <span className="TodayActualTemp">
               {todaysWeatherData?.currentTemperature?.toFixed(0)}°
             </span>

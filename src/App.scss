@@ -1,40 +1,45 @@
-body{
-    height: 100%;
-    .App{
-        padding: 30px; 
-        .ForecastContainer{
-            padding: 30px; 
-            background-color: #322C33;
-            display: block; 
-            color: white; 
-            border-radius: 15px; 
-            .TodayContainer{
-                display: flex;
-                align-content: center;
-                flex-direction: column;
-                .TodayHeaderSummary{
-                    display: block;
-                }
-                .TodayContainerMiddle{
-                    display: flex; 
-                    align-items: center;
-                    .TodayHighLowContainer{
-                        span{
-                            display: block; 
-                            margin-left: 10px; 
-                            color: rgb(206, 206, 206);
-                        }
-                    }
-                }
-                .TodayActualTemp{
-                    font-size: 4em; 
-                }
-                .TodayApparentTemp{
-                    display: block;
-                    font-style: italic;
-                }
-               
-            }
+body {
+  height: 100%;
+  .App {
+    padding: 30px;
+    .ForecastContainer {
+      padding: 30px;
+      background-color: #322c33;
+      display: block;
+      color: white;
+      border-radius: 15px;
+      .TodayContainer {
+        display: flex;
+        align-content: center;
+        flex-direction: column;
+        .TodayHeaderSummary {
+          display: block;
         }
+        .TodayContainerMiddle {
+          display: flex;
+          align-items: center;
+         // color: black; 
+         // filter: invert(82%) sepia(24%) saturate(5354%) hue-rotate(29deg) brightness(93%) contrast(94%);
+          .TodaysWeatherIcon {
+            width: 52px; 
+            filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg) brightness(115%) contrast(100%);
+          }
+          .TodayHighLowContainer {
+            span {
+              display: block;
+              margin-left: 10px;
+              color: rgb(206, 206, 206);
+            }
+          }
+        }
+        .TodayActualTemp {
+          font-size: 4em;
+        }
+        .TodayApparentTemp {
+          display: block;
+          font-style: italic;
+        }
+      }
     }
+  }
 }
