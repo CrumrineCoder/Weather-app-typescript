@@ -37,6 +37,8 @@ import Thunderstorm from "./Weather Icons/wi-thunderstorm.svg";
 import ThunderstormSlightHail from "./Weather Icons/wi-thunderstorm.svg";
 import ThunderstormHeavyHail from "./Weather Icons/wi-thunderstorm.svg";
 
+import Raindrop from "./Weather Icons/wi-raindrops.svg";
+
 import { fetchWeatherApi } from "openmeteo";
 const url = "https://api.open-meteo.com/v1/forecast";
 
@@ -353,7 +355,11 @@ function App() {
             {convertWMO(todaysWeatherData?.summary?.[0])}
           </span>
           <span className="TodayContainerMiddle">
-            <img className="TodaysWeatherIcon" src={getWeatherIcon((todaysWeatherData?.summary?.[0]))}></img>
+            <img
+              alt="Weather Icon"
+              className="TodaysWeatherIcon"
+              src={getWeatherIcon(todaysWeatherData?.summary?.[0])}
+            ></img>
             <span className="TodayActualTemp">
               {todaysWeatherData?.currentTemperature?.toFixed(0)}°
             </span>
@@ -367,7 +373,18 @@ function App() {
             </span>
           </span>
           <span className="TodayApparentTemp">
-            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)} (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
+            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}{" "}
+            (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
+          </span>
+        </span>
+        <span className="TodayAdditionalDetailsContainer">
+          <span className="RainContainer">
+            <img
+              alt="Rain Icon"
+              className="RainIcon"
+              src={Raindrop}
+            ></img>
+            <p>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)} %</p>
           </span>
         </span>
         <h1>Latitude: {latitude}</h1>

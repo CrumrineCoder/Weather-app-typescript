@@ -14,6 +14,9 @@ body {
         align-items: center;
         .TodayHeaderSummary {
           display: block;
+          font-size: 1.5em; 
+          padding: 0px; 
+          margin: 0px; 
         }
         .TodayContainerMiddle {
           display: flex;
@@ -21,7 +24,7 @@ body {
          // color: black; 
          // filter: invert(82%) sepia(24%) saturate(5354%) hue-rotate(29deg) brightness(93%) contrast(94%);
           .TodaysWeatherIcon {
-            width: 52px; 
+            width: 3em; 
             filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg) brightness(115%) contrast(100%);
           }
           .TodayHighLowContainer {
@@ -38,6 +41,14 @@ body {
         .TodayApparentTemp {
           display: block;
           font-style: italic;
+        }
+      }
+      .TodayAdditionalDetailsContainer{
+        .RainContainer{
+            .RainIcon{
+                width: 52px; 
+                filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg) brightness(115%) contrast(100%);
+            }
         }
       }
     }
