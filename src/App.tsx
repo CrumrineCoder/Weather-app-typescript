@@ -167,19 +167,19 @@ interface WeeklyForecastData {
 }
 */
 interface WeeklyForecastDataItem {
-  temperatureMax?: Float32Array | undefined;
-  temperatureMin?: Float32Array | undefined;
-  apparentTemperatureMax?: Float32Array | undefined;
-  apparentTemperatureMin?: Float32Array | undefined;
-  sunrise?: Float32Array | undefined;
-  sunset?: Float32Array | undefined;
-  precipitationSum?: Float32Array | undefined;
-  rainSum?: Float32Array | undefined;
-  showersSum?: Float32Array | undefined;
-  precipitationHours?: Float32Array | undefined;
-  precipitationProbabilityMax?: Float32Array | undefined;
-  windspeed?: Float32Array | undefined;
-  summary?: Float32Array | undefined;
+  temperatureMax?: Number | undefined;
+  temperatureMin?: Number | undefined;
+  apparentTemperatureMax?: Number | undefined;
+  apparentTemperatureMin?: Number | undefined;
+  sunrise?: Number | undefined;
+  sunset?: Number | undefined;
+  precipitationSum?: Number | undefined;
+  rainSum?: Number | undefined;
+  showersSum?: Number | undefined;
+  precipitationHours?: Number | undefined;
+  precipitationProbabilityMax?: Number | undefined;
+  windspeed?: Number | undefined;
+  summary?: Number | undefined;
 }
 
 type WeeklyForecastData = WeeklyForecastDataItem[];
