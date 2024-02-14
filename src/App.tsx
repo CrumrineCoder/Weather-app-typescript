@@ -149,23 +149,6 @@ interface TodaysWeatherData {
   summary?: Float32Array | undefined;
 }
 
-/*
-interface WeeklyForecastData {
-  temperatureMax?: Float32Array | undefined;
-  temperatureMin?: Float32Array | undefined;
-  apparentTemperatureMax?: Float32Array | undefined;
-  apparentTemperatureMin?: Float32Array | undefined;
-  sunrise?: Float32Array | undefined;
-  sunset?: Float32Array | undefined;
-  precipitationSum?: Float32Array | undefined;
-  rainSum?: Float32Array | undefined;
-  showersSum?: Float32Array | undefined;
-  precipitationHours?: Float32Array | undefined;
-  precipitationProbabilityMax?: Float32Array | undefined;
-  windspeed?: Float32Array | undefined;
-  summary?: Float32Array | undefined;
-}
-*/
 interface WeeklyForecastDataItem {
   temperatureMax?: Number | undefined;
   temperatureMin?: Number | undefined;
@@ -191,7 +174,7 @@ function App() {
     TodaysWeatherData | undefined
   >(undefined);
   const [weeklyForecastData, setWeeklyForecastData] = useState<
-  WeeklyForecastData | undefined
+    WeeklyForecastData | undefined
   >(undefined);
 
   function getLocation() {
@@ -202,7 +185,7 @@ function App() {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
     //getWeather(latitude, longitude);
-     getWeather(position.coords.latitude, position.coords.longitude);
+    getWeather(position.coords.latitude, position.coords.longitude);
   }
 
   async function getWeather(
@@ -307,47 +290,35 @@ function App() {
         summary: weatherData.current.weather_code,
       });
 
-      const convertDailyWeatherToArray = weatherData.daily.time.map((timestamp, index) => ({
-        time: new Date(timestamp),
-        temperature2mMax: Number(weatherData.daily.temperature2mMax[index]),
-        temperature2mMin: Number(weatherData.daily.temperature2mMin[index]),
-        apparentTemperatureMax: Number(weatherData.daily.apparentTemperatureMax[index]),
-        apparentTemperatureMin: Number(weatherData.daily.apparentTemperatureMin[index]),
-    /*    sunrise: Number(weatherData.daily.sunrise[index]),
+      const convertDailyWeatherToArray = weatherData.daily.time.map(
+        (timestamp, index) => ({
+          time: new Date(timestamp),
+          temperatureMax: Number(weatherData.daily.temperature2mMax[index]),
+          temperatureMin: Number(weatherData.daily.temperature2mMin[index]),
+          apparentTemperatureMax: Number(
+            weatherData.daily.apparentTemperatureMax[index]
+          ),
+          apparentTemperatureMin: Number(
+            weatherData.daily.apparentTemperatureMin[index]
+          ),
+          /*    sunrise: Number(weatherData.daily.sunrise[index]),
         sunset: Number(weatherData.daily.sunset[index]), */
-        precipitationSum: Number(weatherData.daily.precipitationSum[index]),
-        rainSum: Number(weatherData.daily.rainSum[index]),
-        showersSum: Number(weatherData.daily.showersSum[index]),
-        snowfallSum: Number(weatherData.daily.snowfallSum[index]),
-        precipitationHours: Number(weatherData.daily.precipitationHours[index]),
-        precipitationProbabilityMax: Number(weatherData.daily.precipitationProbabilityMax[index]),
-        windSpeed10mMax: Number(weatherData.daily.windSpeed10mMax[index]),
-        weatherCode: Number(weatherData.daily.weather_code[index])
-      }));
-      
-      console.log(convertDailyWeatherToArray);
+          precipitationSum: Number(weatherData.daily.precipitationSum[index]),
+          rainSum: Number(weatherData.daily.rainSum[index]),
+          showersSum: Number(weatherData.daily.showersSum[index]),
+          snowfallSum: Number(weatherData.daily.snowfallSum[index]),
+          precipitationHours: Number(
+            weatherData.daily.precipitationHours[index]
+          ),
+          precipitationProbabilityMax: Number(
+            weatherData.daily.precipitationProbabilityMax[index]
+          ),
+          windSpeed10mMax: Number(weatherData.daily.windSpeed10mMax[index]),
+          weatherCode: Number(weatherData.daily.weather_code[index]),
+        })
+      );
 
-      const Test: WeeklyForecastData = convertDailyWeatherToArray;
       setWeeklyForecastData(convertDailyWeatherToArray);
-      /*
-      setWeeklyForecastData({
-        temperatureMax: weatherData.daily.temperature2mMax,
-        temperatureMin: weatherData.daily.temperature2mMin,
-        apparentTemperatureMax: weatherData.daily.apparentTemperatureMax,
-        apparentTemperatureMin: weatherData.daily.apparentTemperatureMin,
-        sunrise: weatherData.daily.sunrise,
-        sunset: weatherData.daily.sunset,
-        precipitationSum: weatherData.daily.precipitationSum,
-        rainSum: weatherData.daily.rainSum,
-        showersSum: weatherData.daily.showersSum,
-        precipitationHours: weatherData.daily.precipitationHours,
-        precipitationProbabilityMax:
-          weatherData.daily.precipitationProbabilityMax,
-        windspeed: weatherData.daily.windSpeed10mMax,
-        summary: weatherData.daily.weather_code,
-      });
-      */
-      
     }
   }
 
@@ -399,6 +370,13 @@ function App() {
               <h3>{key}</h3>
             </div>
           ))}
+
+           <span className="TodayHigh">
+                {weeklyForecastData &&
+                  weeklyForecastData.length > 0 &&
+                  weeklyForecastData[0].temperatureMax?.toFixed(0)}
+                °(high)
+              </span>
         */
   return (
     <div
@@ -412,7 +390,59 @@ function App() {
       <button id="GetWeatherButton" onClick={getLocation}>
         Get Weather
       </button>
-
+      <span className="ForecastContainer">
+        <span className="TodayContainer">
+          <span className="TodayHeaderSummary">
+            {convertWMO(todaysWeatherData?.summary?.[0])}
+          </span>
+          <span className="TodayContainerMiddle">
+            <img
+              alt="Weather Icon"
+              className="TodaysWeatherIcon"
+              src={getWeatherIcon(todaysWeatherData?.summary?.[0])}
+            ></img>
+            <span className="TodayActualTemp">
+              {todaysWeatherData?.currentTemperature?.toFixed(0)}°
+            </span>
+            <span className="TodayHighLowContainer">
+              <span className="TodayHigh">
+                {weeklyForecastData &&
+                  weeklyForecastData.length > 0 &&
+                  weeklyForecastData[0].temperatureMax?.toFixed(0)}
+                °(high)
+              </span>
+              <span className="TodayLow">
+                {weeklyForecastData &&
+                  weeklyForecastData.length > 0 &&
+                  weeklyForecastData[0].temperatureMin?.toFixed(0)}
+                °(low)
+              </span>
+            </span>
+          </span>
+          <span className="TodayApparentTemp">
+            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}{" "}
+            (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
+          </span>
+        </span>
+        <span className="TodayAdditionalDetailsContainer">
+          <span className="RainContainer">
+            <img alt="Rain Icon" className="RainIcon" src={Raindrop}></img>
+            <p>
+              Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)} %
+            </p>
+          </span>
+          <span className="WindContainer">
+            <img alt="Wind Icon" className="WindIcon" src={Wind}></img>
+            <p>Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)} mph</p>
+          </span>
+        </span>
+      </span>
+      {weeklyForecastData?.map((item, index) => (
+        <span key={index} className="TodayLow">
+          {item.temperatureMin?.toFixed(0)}
+          °(low)
+        </span>
+      ))}
     </div>
   );
 }
