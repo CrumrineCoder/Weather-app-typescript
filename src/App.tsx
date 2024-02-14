@@ -318,7 +318,6 @@ function App() {
           summary: Number(weatherData.daily.weather_code[index])
         })
       );
-      console.log(convertDailyWeatherToArray);
       setWeeklyForecastData(convertDailyWeatherToArray);
     }
   }
@@ -359,7 +358,6 @@ function App() {
   }
 
   function convertWMO(code: number | undefined) {
-    console.log(code);
     return WMO_CODES[code as keyof typeof WMO_CODES];
   }
   /*
@@ -437,8 +435,14 @@ function App() {
       <span className="WeeklyForecastContainer">
         {weeklyForecastData?.map((item, index) => (
           <span key={index} className="WeeklyForecastItem">
-            <p>Summary: {convertWMO(item?.summary)}</p>
-            <p>{item.temperatureMin?.toFixed(0)}°(low)</p>
+            <p className="WeeklyForecastSummary">{convertWMO(item?.summary)}</p>
+            <img
+              alt="Weather Icon"
+              className="WeeklyForecastIcon"
+              src={getWeatherIcon(item?.summary)}
+            ></img>
+            <p className="WeeklyForecastHigh">{item.temperatureMax?.toFixed(0)}°(high)</p>
+            <p className="WeeklyForecastLow">{item.temperatureMin?.toFixed(0)}°(low)</p>
           </span>
         ))}
       </span>
