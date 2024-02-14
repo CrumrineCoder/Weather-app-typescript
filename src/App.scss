@@ -7,13 +7,16 @@ body {
       background-color: #322c33;
       color: white;
       border-radius: 15px;
-      display: flex;
-      flex-wrap: wrap;
+      display: flex; 
       align-items: center;
+      flex-wrap: wrap;
       span{
-        flex: 50%;
+        flex-basis: 50%;
       }
       .TodayContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .TodayHeaderSummary {
           display: block;
           font-size: 1.5em; 
@@ -46,6 +49,11 @@ body {
         }
       }
       .TodayAdditionalDetailsContainer{
+        span{
+          flex-direction: column; 
+          align-items: center;
+          display: flex;
+        }
         .RainContainer{
             .RainIcon{
                 width: 52px; 
