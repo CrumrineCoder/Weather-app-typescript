@@ -150,6 +150,7 @@ interface TodaysWeatherData {
 }
 
 interface WeeklyForecastDataItem {
+  time?: Date | undefined; 
   temperatureMax?: number | undefined;
   temperatureMin?: number | undefined;
   apparentTemperatureMax?: number | undefined;
@@ -361,6 +362,10 @@ function App() {
     return WMO_CODES[code as keyof typeof WMO_CODES];
   }
 
+  const convertToGMT = (date: Date | undefined) => {
+    return date?.toLocaleString("en-US", { timeZone: "UTC", weekday: 'short'});
+  };
+
   useEffect(() => {
     // This useEffect will run whenever latitude changes
     if (latitude !== undefined && longitude !== undefined) {
@@ -381,7 +386,7 @@ function App() {
         <>
           <button id="GetWeatherButton" onClick={getLocation}>
             Get Weather
-          </button>
+          </button> 
         </>
       ) : (
         <span>
@@ -436,8 +441,9 @@ function App() {
             </span>
           </span>
           <span className="WeeklyForecastContainer">
-            {weeklyForecastData?.map((item, index) => (
+            {weeklyForecastData?.slice(1)?.map((item, index) => (
               <span key={index} className="WeeklyForecastItem">
+                {convertToGMT(item.time)}
                 <p className="WeeklyForecastSummary">
                   {convertWMO(item?.summary)}
                 </p>
