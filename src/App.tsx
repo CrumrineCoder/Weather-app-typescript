@@ -150,19 +150,19 @@ interface TodaysWeatherData {
 }
 
 interface WeeklyForecastDataItem {
-  temperatureMax?: Number | undefined;
-  temperatureMin?: Number | undefined;
-  apparentTemperatureMax?: Number | undefined;
-  apparentTemperatureMin?: Number | undefined;
-  sunrise?: Number | undefined;
-  sunset?: Number | undefined;
-  precipitationSum?: Number | undefined;
-  rainSum?: Number | undefined;
-  showersSum?: Number | undefined;
-  precipitationHours?: Number | undefined;
-  precipitationProbabilityMax?: Number | undefined;
-  windspeed?: Number | undefined;
-  summary?: Number | undefined;
+  temperatureMax?: number | undefined;
+  temperatureMin?: number | undefined;
+  apparentTemperatureMax?: number | undefined;
+  apparentTemperatureMin?: number | undefined;
+  sunrise?: number | undefined;
+  sunset?: number | undefined;
+  precipitationSum?: number | undefined;
+  rainSum?: number | undefined;
+  showersSum?: number | undefined;
+  precipitationHours?: number | undefined;
+  precipitationProbabilityMax?: number | undefined;
+  windspeed?: number | undefined;
+  summary?: number | undefined; 
 }
 
 type WeeklyForecastData = WeeklyForecastDataItem[];
@@ -315,9 +315,10 @@ function App() {
           ),
           windSpeed10mMax: Number(weatherData.daily.windSpeed10mMax[index]),
           weatherCode: Number(weatherData.daily.weather_code[index]),
+          summary: Number(weatherData.daily.weather_code[index])
         })
       );
-
+      console.log(convertDailyWeatherToArray);
       setWeeklyForecastData(convertDailyWeatherToArray);
     }
   }
@@ -358,6 +359,7 @@ function App() {
   }
 
   function convertWMO(code: number | undefined) {
+    console.log(code);
     return WMO_CODES[code as keyof typeof WMO_CODES];
   }
   /*
@@ -371,12 +373,7 @@ function App() {
             </div>
           ))}
 
-           <span className="TodayHigh">
-                {weeklyForecastData &&
-                  weeklyForecastData.length > 0 &&
-                  weeklyForecastData[0].temperatureMax?.toFixed(0)}
-                °(high)
-              </span>
+      
         */
   return (
     <div
@@ -437,12 +434,14 @@ function App() {
           </span>
         </span>
       </span>
-      {weeklyForecastData?.map((item, index) => (
-        <span key={index} className="TodayLow">
-          {item.temperatureMin?.toFixed(0)}
-          °(low)
-        </span>
-      ))}
+      <span className="WeeklyForecastContainer">
+        {weeklyForecastData?.map((item, index) => (
+          <span key={index} className="WeeklyForecastItem">
+            <p>Summary: {convertWMO(item?.summary)}</p>
+            <p>{item.temperatureMin?.toFixed(0)}°(low)</p>
+          </span>
+        ))}
+      </span>
     </div>
   );
 }
