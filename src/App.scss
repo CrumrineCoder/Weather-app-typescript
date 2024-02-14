@@ -89,14 +89,19 @@ body {
           align-items: center;
           .WeeklyForecastSummary {
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.3em;
+            margin: 0 auto; 
           }
           .WeeklyForecastIcon {
             width: 3em;
             filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
               brightness(115%) contrast(100%);
           }
+          .WeeklyForecastHigh, .WeeklyForecastLow{
+            color: rgb(206, 206, 206);
+          }
           .WeeklyForecastHigh {
+            margin-top: 20px; 
             padding: 5px;
           }
           .WeeklyForecastLow {
