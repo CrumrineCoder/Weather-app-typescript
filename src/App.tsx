@@ -1,6 +1,6 @@
 import "./App.css";
 import "./App.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ClearSky from "./Weather Icons/wi-day-sunny.svg";
 import MainlyClear from "./Weather Icons/wi-day-cloudy.svg";
@@ -162,7 +162,7 @@ interface WeeklyForecastDataItem {
   precipitationHours?: number | undefined;
   precipitationProbabilityMax?: number | undefined;
   windspeed?: number | undefined;
-  summary?: number | undefined; 
+  summary?: number | undefined;
 }
 
 type WeeklyForecastData = WeeklyForecastDataItem[];
@@ -315,7 +315,7 @@ function App() {
           ),
           windSpeed10mMax: Number(weatherData.daily.windSpeed10mMax[index]),
           weatherCode: Number(weatherData.daily.weather_code[index]),
-          summary: Number(weatherData.daily.weather_code[index])
+          summary: Number(weatherData.daily.weather_code[index]),
         })
       );
       setWeeklyForecastData(convertDailyWeatherToArray);
@@ -360,90 +360,103 @@ function App() {
   function convertWMO(code: number | undefined) {
     return WMO_CODES[code as keyof typeof WMO_CODES];
   }
-  /*
-    {weeklyForecastData?.map((item,index)=>{
 
-        })}
+  useEffect(() => {
+    // This useEffect will run whenever latitude changes
+    if (latitude !== undefined && longitude !== undefined) {
+      getWeather(latitude, longitude);
+    }
+  }, [latitude, longitude]); // Dependencies for useEffect
 
-           {Object.entries(weeklyForecastData).map(([key, values]) => (
-            <div key={key}>
-              <h3>{key}</h3>
-            </div>
-          ))}
-
-      
-        */
   return (
     <div
       className="App"
       style={{
-        background: `linear-gradient(180deg, ${getTemperatureId(todaysWeatherData?.apparentTemperature)} 50%, rgba(255, 255, 255, 1) 100%)`,
+        background: `linear-gradient(180deg, ${getTemperatureId(
+          todaysWeatherData?.apparentTemperature
+        )} 50%, rgba(255, 255, 255, 1) 100%)`,
       }}
     >
-      <button id="GetWeatherButton" onClick={getLocation}>
-        Get Weather
-      </button>
-      <span className="ForecastContainer">
-        <span className="TodayContainer">
-          <span className="TodayHeaderSummary">
-            {convertWMO(todaysWeatherData?.summary?.[0])}
-          </span>
-          <span className="TodayContainerMiddle">
-            <img
-              alt="Weather Icon"
-              className="TodaysWeatherIcon"
-              src={getWeatherIcon(todaysWeatherData?.summary?.[0])}
-            ></img>
-            <span className="TodayActualTemp">
-              {todaysWeatherData?.currentTemperature?.toFixed(0)}°
-            </span>
-            <span className="TodayHighLowContainer">
-              <span className="TodayHigh">
-                {weeklyForecastData &&
-                  weeklyForecastData.length > 0 &&
-                  weeklyForecastData[0].temperatureMax?.toFixed(0)}
-                °(high)
+      {latitude===undefined ? (
+        <>
+          <button id="GetWeatherButton" onClick={getLocation}>
+            Get Weather
+          </button>
+        </>
+      ) : (
+        <span>
+          <span className="ForecastContainer">
+            <span className="TodayContainer">
+              <span className="TodayHeaderSummary">
+                {convertWMO(todaysWeatherData?.summary?.[0])}
               </span>
-              <span className="TodayLow">
-                {weeklyForecastData &&
-                  weeklyForecastData.length > 0 &&
-                  weeklyForecastData[0].temperatureMin?.toFixed(0)}
-                °(low)
+              <span className="TodayContainerMiddle">
+                <img
+                  alt="Weather Icon"
+                  className="TodaysWeatherIcon"
+                  src={getWeatherIcon(todaysWeatherData?.summary?.[0])}
+                ></img>
+                <span className="TodayActualTemp">
+                  {todaysWeatherData?.currentTemperature?.toFixed(0)}°
+                </span>
+                <span className="TodayHighLowContainer">
+                  <span className="TodayHigh">
+                    {weeklyForecastData &&
+                      weeklyForecastData.length > 0 &&
+                      weeklyForecastData[0].temperatureMax?.toFixed(0)}
+                    °(high)
+                  </span>
+                  <span className="TodayLow">
+                    {weeklyForecastData &&
+                      weeklyForecastData.length > 0 &&
+                      weeklyForecastData[0].temperatureMin?.toFixed(0)}
+                    °(low)
+                  </span>
+                </span>
+              </span>
+              <span className="TodayApparentTemp">
+                Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}{" "}
+                (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
+              </span>
+            </span>
+            <span className="TodayAdditionalDetailsContainer">
+              <span className="RainContainer">
+                <img alt="Rain Icon" className="RainIcon" src={Raindrop}></img>
+                <p>
+                  Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}{" "}
+                  %
+                </p>
+              </span>
+              <span className="WindContainer">
+                <img alt="Wind Icon" className="WindIcon" src={Wind}></img>
+                <p>
+                  Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)} mph
+                </p>
               </span>
             </span>
           </span>
-          <span className="TodayApparentTemp">
-            Feels like {todaysWeatherData?.apparentTemperature?.toFixed(0)}{" "}
-            (Humidity: {todaysWeatherData?.currentHumidity?.toFixed(0)} %)
+          <span className="WeeklyForecastContainer">
+            {weeklyForecastData?.map((item, index) => (
+              <span key={index} className="WeeklyForecastItem">
+                <p className="WeeklyForecastSummary">
+                  {convertWMO(item?.summary)}
+                </p>
+                <img
+                  alt="Weather Icon"
+                  className="WeeklyForecastIcon"
+                  src={getWeatherIcon(item?.summary)}
+                ></img>
+                <span className="WeeklyForecastHigh">
+                  {item.temperatureMax?.toFixed(0)}°(high)
+                </span>
+                <span className="WeeklyForecastLow">
+                  {item.temperatureMin?.toFixed(0)}°(low)
+                </span>
+              </span>
+            ))}
           </span>
         </span>
-        <span className="TodayAdditionalDetailsContainer">
-          <span className="RainContainer">
-            <img alt="Rain Icon" className="RainIcon" src={Raindrop}></img>
-            <p>
-              Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)} %
-            </p>
-          </span>
-          <span className="WindContainer">
-            <img alt="Wind Icon" className="WindIcon" src={Wind}></img>
-            <p>Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)} mph</p>
-          </span>
-        </span>
-      </span>
-      <span className="WeeklyForecastContainer">
-        {weeklyForecastData?.map((item, index) => (
-          <span key={index} className="WeeklyForecastItem">
-            <p className="WeeklyForecastSummary">{convertWMO(item?.summary)}</p>
-            <img
-              alt="Weather Icon"
-              className="WeeklyForecastIcon"
-              src={getWeatherIcon(item?.summary)}
-            ></img>
-            <span className="WeeklyForecastHigh">{item.temperatureMax?.toFixed(0)}°(high)</span>
-            <span className="WeeklyForecastLow">{item.temperatureMin?.toFixed(0)}°(low)</span>
-          </span>
-        ))}
-      </span>
+      )}
     </div>
   );
 }
