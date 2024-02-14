@@ -5,13 +5,15 @@ body {
     .ForecastContainer {
       padding: 30px;
       background-color: #322c33;
-      display: block;
       color: white;
       border-radius: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      span{
+        flex: 50%;
+      }
       .TodayContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         .TodayHeaderSummary {
           display: block;
           font-size: 1.5em; 
@@ -50,6 +52,12 @@ body {
                 filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg) brightness(115%) contrast(100%);
             }
         }
+        .WindContainer{
+          .WindIcon{
+              width: 52px; 
+              filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg) brightness(115%) contrast(100%);
+          }
+      }
       }
     }
   }

@@ -37,6 +37,7 @@ import Thunderstorm from "./Weather Icons/wi-thunderstorm.svg";
 import ThunderstormSlightHail from "./Weather Icons/wi-thunderstorm.svg";
 import ThunderstormHeavyHail from "./Weather Icons/wi-thunderstorm.svg";
 
+import Wind from "./Weather Icons/wi-strong-wind.svg";
 import Raindrop from "./Weather Icons/wi-raindrops.svg";
 
 import { fetchWeatherApi } from "openmeteo";
@@ -345,11 +346,11 @@ function App() {
         ),
       }}
     >
-      <span className="ForecastContainer">
-        <button id="GetWeatherButton" onClick={getLocation}>
-          Get Weather
-        </button>
+      <button id="GetWeatherButton" onClick={getLocation}>
+        Get Weather
+      </button>
 
+      <span className="ForecastContainer">
         <span className="TodayContainer">
           <span className="TodayHeaderSummary">
             {convertWMO(todaysWeatherData?.summary?.[0])}
@@ -379,23 +380,16 @@ function App() {
         </span>
         <span className="TodayAdditionalDetailsContainer">
           <span className="RainContainer">
-            <img
-              alt="Rain Icon"
-              className="RainIcon"
-              src={Raindrop}
-            ></img>
-            <p>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)} %</p>
+            <img alt="Rain Icon" className="RainIcon" src={Raindrop}></img>
+            <p>
+              Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)} %
+            </p>
+          </span>
+          <span className="WindContainer">
+            <img alt="Wind Icon" className="WindIcon" src={Wind}></img>
+            <p>Wind Speed: {todaysWeatherData?.windSpeed?.toFixed(0)} mph</p>
           </span>
         </span>
-        <h1>Latitude: {latitude}</h1>
-        <h1>Longitude: {longitude}</h1>
-        <h1> Today: </h1>
-        <h3>Precipitation: {todaysWeatherData?.precipitation?.toFixed(0)}</h3>
-        <h3>Rain: {todaysWeatherData?.rain?.toFixed(0)}</h3>
-        <h3>Showers: {todaysWeatherData?.showers?.toFixed(0)}</h3>
-        <h3>Snowfall: {todaysWeatherData?.snowfall?.toFixed(0)}</h3>
-        <h3> {todaysWeatherData?.windSpeed?.toFixed(0)}</h3>
-        <h3>Today's Weather Code:</h3>
       </span>
       <h3>
         Tomorrow's Apparent Temperature Max:{" "}
