@@ -1,104 +1,108 @@
 body {
-  height: 100%;
-  .App {
-    padding: 30px;
-    .ForecastContainer {
+  height: 100vh;
+  #root {
+    height: 100%;
+    .App {
       padding: 30px;
-      background-color: #322c33;
-      color: white;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      span {
-        flex-basis: 50%;
-      }
-      .TodayContainer {
+      height: 100%;
+      .ForecastContainer {
+        padding: 30px;
+        background-color: #322c33;
+        color: white;
+        border-radius: 15px;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        .TodayHeaderSummary {
-          display: block;
-          font-size: 1.5em;
-          padding: 0px;
-          margin: 0px;
+        flex-wrap: wrap;
+        span {
+          flex-basis: 50%;
         }
-        .TodayContainerMiddle {
+        .TodayContainer {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          // color: black;
-          // filter: invert(82%) sepia(24%) saturate(5354%) hue-rotate(29deg) brightness(93%) contrast(94%);
-          .TodaysWeatherIcon {
+          .TodayHeaderSummary {
+            display: block;
+            font-size: 1.5em;
+            padding: 0px;
+            margin: 0px;
+          }
+          .TodayContainerMiddle {
+            display: flex;
+            align-items: center;
+            // color: black;
+            // filter: invert(82%) sepia(24%) saturate(5354%) hue-rotate(29deg) brightness(93%) contrast(94%);
+            .TodaysWeatherIcon {
+              width: 3em;
+              filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
+                brightness(115%) contrast(100%);
+            }
+            .TodayHighLowContainer {
+              span {
+                display: block;
+                margin-left: 10px;
+                color: rgb(206, 206, 206);
+              }
+            }
+          }
+          .TodayActualTemp {
+            font-size: 4em;
+          }
+          .TodayApparentTemp {
+            display: block;
+            font-style: italic;
+          }
+        }
+        .TodayAdditionalDetailsContainer {
+          span {
+            flex-direction: column;
+            align-items: center;
+            display: flex;
+          }
+          .RainContainer {
+            .RainIcon {
+              width: 52px;
+              filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
+                brightness(115%) contrast(100%);
+            }
+          }
+          .WindContainer {
+            .WindIcon {
+              width: 52px;
+              filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
+                brightness(115%) contrast(100%);
+            }
+          }
+        }
+      }
+      .WeeklyForecastContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 30px;
+        background-color: #322c33;
+        color: white;
+        margin-top: 10px;
+        border-radius: 15px;
+        .WeeklyForecastItem {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .WeeklyForecastSummary {
+            font-weight: bold;
+            font-size: 1.5em;
+          }
+          .WeeklyForecastIcon {
             width: 3em;
             filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
               brightness(115%) contrast(100%);
           }
-          .TodayHighLowContainer {
-            span {
-              display: block;
-              margin-left: 10px;
-              color: rgb(206, 206, 206);
-            }
+          .WeeklyForecastHigh {
+            padding: 5px;
           }
-        }
-        .TodayActualTemp {
-          font-size: 4em;
-        }
-        .TodayApparentTemp {
-          display: block;
-          font-style: italic;
-        }
-      }
-      .TodayAdditionalDetailsContainer {
-        span {
-          flex-direction: column;
-          align-items: center;
-          display: flex;
-        }
-        .RainContainer {
-          .RainIcon {
-            width: 52px;
-            filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
-              brightness(115%) contrast(100%);
-          }
-        }
-        .WindContainer {
-          .WindIcon {
-            width: 52px;
-            filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
-              brightness(115%) contrast(100%);
+          .WeeklyForecastLow {
           }
         }
       }
-    }
-    .WeeklyForecastContainer {
-      display: flex; 
-      flex-direction: row;
-      justify-content: space-between;
-      padding: 30px;
-      background-color: #322c33;
-      color: white;
-      margin-top: 10px;
-      border-radius: 15px; 
-      .WeeklyForecastItem{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .WeeklyForecastSummary {
-        }
-        .WeeklyForecastIcon {
-          width: 3em;
-          filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
-            brightness(115%) contrast(100%);
-        }
-        .WeeklyForecastHigh{
-  
-        }
-        .WeeklyForecastLow{
-  
-        }
-      }
-      
     }
   }
 }

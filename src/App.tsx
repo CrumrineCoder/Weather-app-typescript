@@ -377,9 +377,7 @@ function App() {
     <div
       className="App"
       style={{
-        backgroundColor: getTemperatureId(
-          todaysWeatherData?.apparentTemperature
-        ),
+        background: `linear-gradient(180deg, ${getTemperatureId(todaysWeatherData?.apparentTemperature)} 50%, rgba(255, 255, 255, 1) 100%)`,
       }}
     >
       <button id="GetWeatherButton" onClick={getLocation}>
@@ -441,8 +439,8 @@ function App() {
               className="WeeklyForecastIcon"
               src={getWeatherIcon(item?.summary)}
             ></img>
-            <p className="WeeklyForecastHigh">{item.temperatureMax?.toFixed(0)}°(high)</p>
-            <p className="WeeklyForecastLow">{item.temperatureMin?.toFixed(0)}°(low)</p>
+            <span className="WeeklyForecastHigh">{item.temperatureMax?.toFixed(0)}°(high)</span>
+            <span className="WeeklyForecastLow">{item.temperatureMin?.toFixed(0)}°(low)</span>
           </span>
         ))}
       </span>
