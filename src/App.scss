@@ -12,8 +12,41 @@ body {
       display: flex;
       justify-content: center; /*centers items on the line (the x-axis by default)*/
       align-items: center; /*centers items on the cross-axis (y by default)*/
-      #GetWeatherButton{
-        margin: 0 auto; 
+      #GetWeatherButton {
+        margin: 0 auto;
+
+        background-color: #fbeee0;
+        border: 2px solid #422800;
+        border-radius: 30px;
+        box-shadow: #422800 4px 4px 0 0;
+        color: #422800;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 0 18px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+
+        &:hover {
+          background-color: #fff;
+        }
+
+        &:active {
+          box-shadow: #422800 2px 2px 0 0;
+          transform: translate(2px, 2px);
+        }
+
+        @media (min-width: 768px) {
+          .button-74 {
+            min-width: 120px;
+            padding: 0 25px;
+          }
+        }
       }
       .ForecastContainer {
         padding: 30px;
@@ -23,8 +56,8 @@ body {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        width: 100vh; 
-        margin: 20px; 
+        width: 100vh;
+        margin: 20px;
         span {
           flex-basis: 50%;
         }
@@ -102,18 +135,19 @@ body {
           .WeeklyForecastSummary {
             font-weight: bold;
             font-size: 1.3em;
-            margin: 0 auto; 
+            margin: 0 auto;
           }
           .WeeklyForecastIcon {
             width: 3em;
             filter: invert(99%) sepia(4%) saturate(93%) hue-rotate(249deg)
               brightness(115%) contrast(100%);
           }
-          .WeeklyForecastHigh, .WeeklyForecastLow{
+          .WeeklyForecastHigh,
+          .WeeklyForecastLow {
             color: rgb(206, 206, 206);
           }
           .WeeklyForecastHigh {
-            margin-top: 20px; 
+            margin-top: 20px;
             padding: 5px;
           }
           .WeeklyForecastLow {
