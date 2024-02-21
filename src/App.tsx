@@ -182,6 +182,15 @@ function App() {
     navigator.geolocation.getCurrentPosition(handleLocation);
   }
 
+  navigator.permissions && navigator.permissions.query({name: 'geolocation'})
+  .then(function(PermissionStatus) {
+      if (PermissionStatus.state == 'granted') {
+        console.log("APPROVED");
+      } else {
+        console.log("DENIED");
+      }
+  })
+
   function handleLocation(position: GeolocationPosition) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
