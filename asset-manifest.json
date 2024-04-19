@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Weather-app-typescript/static/css/main.778f2654.css",
-    "main.js": "/Weather-app-typescript/static/js/main.bae8a4d1.js",
+    "main.css": "/Weather-app-typescript/static/css/main.cb61bd95.css",
+    "main.js": "/Weather-app-typescript/static/js/main.601e3cb5.js",
     "static/js/592.d2c639db.chunk.js": "/Weather-app-typescript/static/js/592.d2c639db.chunk.js",
     "static/media/wi-day-rain.svg": "/Weather-app-typescript/static/media/wi-day-rain.d16f4653603e304dd70daf297d0b36dd.svg",
     "static/media/wi-snow.svg": "/Weather-app-typescript/static/media/wi-snow.de5621088ea8b6f9cdddba16d807e42a.svg",
@@ -14,12 +14,12 @@
     "static/media/wi-raindrops.svg": "/Weather-app-typescript/static/media/wi-raindrops.1763fc2d7f06fb761fd60baf386d4fc1.svg",
     "static/media/wi-cloud.svg": "/Weather-app-typescript/static/media/wi-cloud.55d92a74df797c7ded4285fffea1d07e.svg",
     "index.html": "/Weather-app-typescript/index.html",
-    "main.778f2654.css.map": "/Weather-app-typescript/static/css/main.778f2654.css.map",
-    "main.bae8a4d1.js.map": "/Weather-app-typescript/static/js/main.bae8a4d1.js.map",
+    "main.cb61bd95.css.map": "/Weather-app-typescript/static/css/main.cb61bd95.css.map",
+    "main.601e3cb5.js.map": "/Weather-app-typescript/static/js/main.601e3cb5.js.map",
     "592.d2c639db.chunk.js.map": "/Weather-app-typescript/static/js/592.d2c639db.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.778f2654.css",
-    "static/js/main.bae8a4d1.js"
+    "static/css/main.cb61bd95.css",
+    "static/js/main.601e3cb5.js"
   ]
 }
