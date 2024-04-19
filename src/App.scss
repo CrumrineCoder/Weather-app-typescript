@@ -140,7 +140,10 @@ body {
             font-weight: bold;
             font-size: 1.3em;
             margin: 0 auto;
-            height: 70px; 
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
           .WeeklyForecastIcon {
             width: 3em;
