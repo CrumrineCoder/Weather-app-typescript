@@ -398,7 +398,7 @@ function App() {
           </button> 
         </>
       ) : (
-        <span>
+        <span className="ContentContainer">
           <span className="ForecastContainer">
             <span className="TodayContainer">
               <span className="TodayHeaderSummary">
@@ -452,7 +452,9 @@ function App() {
           <span className="WeeklyForecastContainer">
             {weeklyForecastData?.slice(1)?.map((item, index) => (
               <span key={index} className="WeeklyForecastItem">
+                <span className="WeeklyForecastDay">
                 {convertToGMT(item.time)}
+                </span>
                 <p className="WeeklyForecastSummary">
                   {convertWMO(item?.summary)}
                 </p>
