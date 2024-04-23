@@ -8,7 +8,6 @@ body {
     width: 100%;
     .App {
       height: 100%;
-      overflow: hidden;
       position: absolute;
       margin: 0;
       width: 100vw;
@@ -44,16 +43,10 @@ body {
           box-shadow: #422800 2px 2px 0 0;
           transform: translate(2px, 2px);
         }
-
-        @media (min-width: 768px) {
-          .button-74 {
-            min-width: 120px;
-            padding: 0 25px;
-          }
-        }
       }
       .ContentContainer{
-        margin: 10px;
+        max-height: 90vh; 
+        margin: 20px;
       }
 
       .ForecastContainer {
@@ -64,9 +57,12 @@ body {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 50px;
+        text-align: center; 
         span {
           flex-basis: 50%;
+          @media (max-width: $breakpointTablet) {
+            flex-basis: 100%;
+          }
         }
         .TodayContainer {
           display: flex;
@@ -146,13 +142,18 @@ body {
           align-items: center;
           flex-basis: 33%;
           text-align: center;
+          padding: 0px 10px; 
 
           @media (max-width: $breakpointTablet) {
             flex: 1 0 33%;
-            margin-top: 30px;
+            margin-top: 15px; 
           }
           .WeeklyForecastDay{
             font-style: italic;
+            margin-bottom: -10px; 
+            @media (max-width: $breakpointTablet) {
+              margin-bottom: -30px; 
+            }
           }
 
           .WeeklyForecastSummary {
@@ -160,6 +161,9 @@ body {
             font-size: 1.3em;
             margin: 0 auto;
             height: 70px;
+            @media (max-width: $breakpointTablet) {
+              height: 100px; 
+            }
             display: flex;
             justify-content: center;
             align-items: center;
